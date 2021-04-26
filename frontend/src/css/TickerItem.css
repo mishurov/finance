@@ -1,0 +1,54 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.TickerItem, .Item-empty {
+  height: 20px;
+  padding: 2px 0;
+}
+
+.TickerItem {
+  color: #fff;
+  padding: 2px 2px 2px 7px;
+  background-color: #777;
+  font-family: 'PT Sans', sans-serif;
+  border-radius: 12px;
+}
+
+.TickerItem.missing {
+  color: #eee;
+  background-color: #ccc;
+}
+
+.TickerItem-Label {
+  vertical-align: 32%;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 2px;
+}
+
+.TickerItem-Close {
+  vertical-align: 5%;
+  background: transparent;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.TickerItem-Close > img {
+  width: 20px;
+  height: 20px;
+}

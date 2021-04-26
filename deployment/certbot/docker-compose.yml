@@ -1,0 +1,46 @@
+# /**************************************************************************
+#
+#  This file is part of the Mishurov Finance website
+#
+#  Copyright (C) 2021 Alexander Mishurov
+#
+#  GNU General Public License Usage
+#  This file may be used under the terms of the GNU
+#  General Public License version 3. The licenses are as published by
+#  the Free Software Foundation and appearing in the file LICENSE.GPL3
+#  included in the packaging of this file. Please review the following
+#  information to ensure the GNU General Public License requirements will
+#  be met: https://www.gnu.org/licenses/gpl-3.0.html.
+#
+# **************************************************************************/
+
+version: '3.9'
+
+services:
+  certbot:
+    container_name: finance_certbot
+    image: registry.local:32000/finance_certbot:dev
+    build:
+      context: .
+      target: dev
+    secrets:
+      - config
+      - private.pem
+      - balancer.txt
+    volumes:
+      - ./crontab:/home/certifier/crontab
+      - ./renew.sh:/home/certifier/renew.sh
+    command: bash -c 'cron && crontab crontab && tail -f /var/log/cron.log'
+
+secrets:
+  balancer.txt:
+    file: ./secrets/balancer.txt
+  private.pem:
+    file: ./secrets/private.pem
+  config:
+    file: ./secrets/config
+
+networks:
+  default:
+    external: true
+    name: finance_net_dev

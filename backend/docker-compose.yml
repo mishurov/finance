@@ -1,0 +1,109 @@
+# /**************************************************************************
+#
+#  This file is part of the Mishurov Finance website
+#
+#  Copyright (C) 2021 Alexander Mishurov
+#
+#  GNU General Public License Usage
+#  This file may be used under the terms of the GNU
+#  General Public License version 3. The licenses are as published by
+#  the Free Software Foundation and appearing in the file LICENSE.GPL3
+#  included in the packaging of this file. Please review the following
+#  information to ensure the GNU General Public License requirements will
+#  be met: https://www.gnu.org/licenses/gpl-3.0.html.
+#
+# **************************************************************************/
+
+version: '3.9'
+
+x-env: &oracle_env
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/oracle/client
+  - DEBUG=true
+  - MEMCACHED=false
+
+x-secrets: &django_secrets
+  - credentials.json
+  - cwallet.sso
+  - tnsnames.ora
+
+x-volumes: &django_volumes
+  - ./finance:/app
+  - oracle_client:/opt/oracle/client
+  - ./configs/django.json:/etc/configs/django.json
+  - ./configs/supervisord.conf:/etc/configs/supervisord.conf
+  - ./configs/gunicorn.conf.py:/etc/configs/gunicorn.conf.py
+
+services:
+  app:
+    container_name: finance_app
+    image: registry.local:32000/finance_app:dev
+    build:
+      context: .
+      target: dev
+    command: /bin/bash -c 'sleep 1d'
+    ports:
+      - 8000:8000
+    environment: *oracle_env
+    volumes: *django_volumes
+    secrets: *django_secrets
+    depends_on:
+      - es
+      - memcached
+    networks:
+      - finance_net_dev
+
+  celery:
+    container_name: finance_celery
+    image: registry.local:32000/finance_app:dev
+    command: /bin/bash -c 'supervisord -c /etc/configs/supervisord.conf'
+    environment: *oracle_env
+    volumes: *django_volumes
+    secrets: *django_secrets
+    depends_on:
+      - redis
+      - memcached
+    networks:
+      - finance_net_dev
+
+  redis:
+    container_name: finance_redis
+    image: redis:6.2
+    networks:
+      - finance_net_dev
+
+  es:
+    container_name: finance_elastic
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    environment:
+      - discovery.type=single-node
+      - logger.level=WARN
+      - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - finance_net_dev
+
+  memcached:
+    container_name: finance_memcached
+    image: docker.io/memcached:1.6.9
+    command: memcached -m 128
+    networks:
+      - finance_net_dev
+
+volumes:
+  oracle_client: # deployment/scripts/partials/create_volume.sh
+    external: true
+  es_data:
+    driver: local
+
+secrets:
+  cwallet.sso:
+    file: ./secrets/cwallet.sso
+  tnsnames.ora:
+    file: ./secrets/tnsnames.ora
+  credentials.json:
+    file: ./secrets/credentials.json
+
+networks:
+  finance_net_dev:
+    name: finance_net_dev

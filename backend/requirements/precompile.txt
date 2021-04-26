@@ -1,0 +1,2 @@
+fast-autocomplete[levenshtein]==0.7.1
+uvicorn[standard]==0.13.4

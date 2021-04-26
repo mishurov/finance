@@ -1,0 +1,96 @@
+# /**************************************************************************
+#
+#  This file is part of the Mishurov Finance website
+#
+#  Copyright (C) 2021 Alexander Mishurov
+#
+#  GNU General Public License Usage
+#  This file may be used under the terms of the GNU
+#  General Public License version 3. The licenses are as published by
+#  the Free Software Foundation and appearing in the file LICENSE.GPL3
+#  included in the packaging of this file. Please review the following
+#  information to ensure the GNU General Public License requirements will
+#  be met: https://www.gnu.org/licenses/gpl-3.0.html.
+#
+# **************************************************************************/
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  selector:
+    app: app
+  ports:
+    - port: 8000
+      targetPort: 8000
+
+---
+
+# kubectl create configmap app-configs \
+#   --from-file=../../backend/configs/ \
+#   -o yaml --dry-run=client > ./configs/app-configs.yml
+# kubectl apply -f ./configs/app-configs.yml
+
+---
+
+# kubectl create secret generic app-secrets \
+#   --from-file=../../backend/secrets/ -o yaml \
+#   --dry-run=client > ./secrets/app-secrets.yml
+# kubectl apply -f ./secrets/app-secrets.yml
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      volumes:
+        - name: client
+          hostPath:
+            path: /home/ubuntu/client
+            type: Directory
+        - name: configs
+          configMap:
+            name: app-configs
+        - name: secrets
+          secret:
+            secretName: app-secrets
+      containers:
+        - name: app
+          image: registry.local:32000/finance_app:1.0
+          imagePullPolicy: Always
+          env:
+            - name: LD_LIBRARY_PATH
+              value: '$LD_LIBRARY_PATH:/opt/oracle/client'
+            - name: DEBUG
+              value: 'true'
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: client
+              mountPath: /opt/oracle/client
+              readOnly: true
+            - name: configs
+              mountPath: /etc/configs
+              readOnly: true
+            - name: secrets
+              mountPath: /var/run/secrets
+              readOnly: true
+
+# kubectl get pods
+# kubectl exec --stdin --tty app-deployment-7bb545c9dd-td67h -- /bin/bash

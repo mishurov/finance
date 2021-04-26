@@ -1,0 +1,68 @@
+# /**************************************************************************
+#
+#  This file is part of the Mishurov Finance website
+#
+#  Copyright (C) 2021 Alexander Mishurov
+#
+#  GNU General Public License Usage
+#  This file may be used under the terms of the GNU
+#  General Public License version 3. The licenses are as published by
+#  the Free Software Foundation and appearing in the file LICENSE.GPL3
+#  included in the packaging of this file. Please review the following
+#  information to ensure the GNU General Public License requirements will
+#  be met: https://www.gnu.org/licenses/gpl-3.0.html.
+#
+# **************************************************************************/
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+  topologyKeys:
+    - "kubernetes.io/hostname"
+
+---
+# kubectl create configmap nginx-config --from-file=../configs/nginx.conf.template -o yaml --dry-run=client > ./configs/nginx-config.yml
+# kubectl apply -f ./configs/nginx-config.yml
+---
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf.template
+                path: default.conf.template
+      containers:
+        - name: nginx
+          image: docker.io/nginx:1.19.9
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nginx/templates
+              readOnly: true

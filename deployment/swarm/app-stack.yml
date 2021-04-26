@@ -1,0 +1,132 @@
+# /**************************************************************************
+#
+#  This file is part of the Mishurov Finance website
+#
+#  Copyright (C) 2021 Alexander Mishurov
+#
+#  GNU General Public License Usage
+#  This file may be used under the terms of the GNU
+#  General Public License version 3. The licenses are as published by
+#  the Free Software Foundation and appearing in the file LICENSE.GPL3
+#  included in the packaging of this file. Please review the following
+#  information to ensure the GNU General Public License requirements will
+#  be met: https://www.gnu.org/licenses/gpl-3.0.html.
+#
+# **************************************************************************/
+
+version: '3.9'
+
+services:
+  app:
+    image: registry.local:32000/finance_app:1.0
+    hostname: 'app_{{.Node.Hostname}}'
+    networks:
+      - finance_net
+    deploy:
+      mode: global
+      placement:
+        max_replicas_per_node: 1
+    build:
+      context: ../../backend
+      target: prod
+    volumes:
+      - oracle_client:/opt/oracle/client
+    environment:
+      - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/oracle/client
+      #- DEBUG=true
+    secrets:
+      - credentials.json
+      - cwallet.sso
+      - tnsnames.ora
+    configs:
+      - source: django
+        target: /etc/configs/django.json
+      - source: gunicorn
+        target: /etc/configs/gunicorn.conf.py
+    depends_on:
+      - memcached
+
+  memcached:
+    image: docker.io/memcached:1.6.9
+    networks:
+      - finance_net
+    deploy:
+      mode: global
+      endpoint_mode: dnsrr
+      placement:
+        max_replicas_per_node: 1
+    command: memcached -m 128
+
+  certbot:
+    image: registry.local:32000/finance_certbot:1.0
+    networks:
+      - finance_net
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.labels.main==master
+    hostname: certbot
+    build:
+      context: ../certbot
+      target: prod
+    secrets:
+      - source: oci
+        target: /var/run/secrets/config
+      - private.pem
+      - balancer.txt
+    command:
+      - bash
+      - -c
+      - 'cron && crontab crontab && tail -f /var/log/cron.log'
+  nginx:
+    image: docker.io/nginx:1.19.9
+    networks:
+      - finance_net
+    deploy:
+      mode: global
+      placement:
+        max_replicas_per_node: 1
+    environment:
+      - APP_PORT_8000_TCP_ADDR=app_{{.Node.Hostname}}
+      - CERTBOT_PORT_80_TCP_ADDR=certbot
+    configs:
+      - source: nginx
+        target: /etc/nginx/templates/default.conf.template
+    ports:
+      - 30080:80
+    depends_on:
+      - app
+
+volumes:
+  oracle_client:
+    external: true
+
+configs:
+  nginx:
+    file: ../configs/nginx.conf.template
+  django:
+    file: ../../backend/configs/django.json
+  gunicorn:
+    file: ../../backend/configs/gunicorn.conf.py
+
+secrets:
+  cwallet.sso:
+    file: ../../backend/secrets/cwallet.sso
+  tnsnames.ora:
+    file: ../../backend/secrets/tnsnames.ora
+  credentials.json:
+    file: ../../backend/secrets/credentials.json
+  balancer.txt:
+    file: ../certbot/secrets/balancer.txt
+  private.pem:
+    file: ../certbot/secrets/private.pem
+  oci:
+    file: ../certbot/secrets/config
+
+networks:
+  finance_net:
+    name: finance_net
+    external: true

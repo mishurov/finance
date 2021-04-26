@@ -1,0 +1,7 @@
+{
+  "DEBUG": false,
+  "EXPOSE_ADMIN": false,
+  "USE_ELASTIC_COMPLETER": false,
+  "USE_WEB_CRAWL": false,
+  "MEMCACHED": true
+}

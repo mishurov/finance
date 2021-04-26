@@ -1,0 +1,69 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.DropDown {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  position: absolute;
+  z-index: 20000;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
+  font-weight: medium;
+}
+
+.DropDown > p {
+  background-color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  padding: 10px;
+  margin: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+.DropDown > table {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-spacing: 0px;
+  border-collapse: separate;
+  border: 0;
+}
+
+.DropDown > table > tbody > tr {
+  cursor: pointer;
+}
+
+.DropDown > table > tbody > tr.active {
+  background-color: #eee;
+}
+
+.DropDown > table > tbody > tr > td {
+  padding: 7px;
+}
+
+.DropDown > table > tbody > tr > td.ticker {
+  min-width: 50px;
+  padding-left: 10px;
+  white-space: nowrap;
+}
+
+.DropDown > table > tbody > tr > td.name {
+  font-size: 15px;
+  color: #555;
+  padding-right: 22px;
+  white-space: nowrap;
+}

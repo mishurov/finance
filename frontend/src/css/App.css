@@ -1,0 +1,250 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/*
+@font-face {
+  font-family: 'PT Serif';
+  font-weight: normal;
+  font-style: normal;
+  src: local('PT Serif'), url(../fonts/PTSerif-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-weight: bold;
+  font-style: normal;
+  src: local('PT Serif'), url(../fonts/PTSerif-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-weight: normal;
+  font-style: italic;
+  src: local('PT Serif'), url(../fonts/PTSerif-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-weight: bold;
+  font-style: italic;
+  src: local('PT Serif'), url(../fonts/PTSerif-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-weight: normal;
+  font-style: normal;
+  src: local('PT Sans'), url(../fonts/PTSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: normal;
+  src: local('PT Sans'), url(../fonts/PTSans-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-weight: normal;
+  font-style: italic;
+  src: local('PT Sans'), url(../fonts/PTSans-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: italic;
+  src: local('PT Sans'), url(../fonts/PTSans-BoldItalic.ttf) format('truetype');
+}
+*/
+
+.App {
+  margin: 20px;
+  font-family: 'PT Serif', serif;
+}
+
+a {
+  color: #3d5cc4;
+  text-decoration: none;
+}
+
+a:hover  {
+  text-decoration: underline;
+}
+
+a.active {
+  color: #555;
+  pointer-events: none;
+}
+
+.SuspenseFallback {
+  font-family: 'PT Serif', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #888;
+
+  visibility: hidden;
+  animation: SuspenseFallbackFadeIn 1s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes SuspenseFallbackFadeIn {
+  from {
+    visibility: visible;
+    opacity: 0;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.Item-empty {
+  font-family: 'PT Serif', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #777;
+}
+
+.Security-title {
+  min-height: 33px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'PT Serif', serif;
+}
+
+h2, h3 {
+  color: #333;
+}
+
+h2 {
+  font-size: 17px;
+}
+
+h3 {
+  font-size: 15px;
+}
+
+h4 {
+  color: #777;
+  font-size: 12px;
+}
+
+dl {
+  align-items: baseline;
+  font-family: 'PT Sans', sans-serif;
+}
+
+dl, dt, dd {
+  padding: 0;
+  margin: 0;
+}
+
+h6.notes {
+  font-size: 13px;
+  color: #222;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+p.notes {
+  max-width: 600px;
+  margin-top: 5px;
+  font-family: 'PT Serif', serif;
+  font-size: 13px;
+  color: #575757;
+}
+
+p.notes > ol {
+  padding-left: 12px;
+  margin: 0;
+}
+
+p.notes > ol > li {
+  margin-bottom: 5px;
+}
+
+svg {
+  display: block;
+}
+
+
+div.Security-dict {
+  display: flex;
+  column-gap: 15px;
+}
+
+.Security-dict dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+  column-gap: 5px;
+  height: max-content;
+  align-items: baseline;
+  padding: 0;
+  margin-top: 0;
+}
+
+.Security-dict dt {
+  text-align: right;
+  padding: 0;
+  margin: 0;
+}
+
+.Security-dict dd {
+  padding: 0;
+  margin: 0;
+}
+
+.AxisLabel {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 13px;
+  fill: #222;
+}
+
+.FooterText {
+  width: max-content;
+}
+
+.NotFound {
+  min-height: calc(100vh - 10.5rem);
+}
+
+div.disclaimer {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 10px;
+  width: 450px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+div.copyright {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 11px;
+  color: #555;
+}
+
+g.not-available > text {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 25px;
+}

@@ -1,0 +1,87 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.FrontierPlot .ColorLegend > text {
+  font-family: sans;
+  font-size: 13px;
+  fill: #222;
+}
+
+.FrontierPlot .colorAxis > g > text {
+  font-size: 10px;
+  fill: #333;
+}
+
+.FrontierPlot .colorAxis > g > line {
+  stroke: #222;
+}
+
+g.crosshair.min > line {
+  stroke-dasharray: 2;
+  stroke: #222a;
+}
+
+.FrontierPlot .AssetItems text {
+  font-family: sans;
+  font-size: 11px;
+  font-weight: bold;
+  fill: #fff;
+  cursor: default;
+}
+
+.FrontierPlot .AssetItems circle,
+.FrontierPlot .AssetItems rect {
+  stroke-width: 1;
+  stroke: white;
+  fill: black;
+}
+
+.FrontierPlot g.optimal > circle,
+.FrontierPlot g.optimal > g > rect,
+.FrontierPlot g.selected > circle,
+.FrontierPlot g.selected > g > rect {
+  stroke-width: 1;
+  stroke: white;
+}
+
+.FrontierPlot g.optimal text,
+.FrontierPlot g.selected text {
+  font-family: sans;
+  font-size: 12px;
+  fill: #fff;
+  cursor: default;
+}
+
+.FrontierPlot line.min {
+  stroke-width: 1;
+  stroke: #222;
+}
+
+.FrontierPlot circle.interactive {
+  fill: transparent;
+  stroke-width: 1;
+  stroke: #1115;
+  cursor: pointer;
+}
+
+.FrontierPlot circle.interactive:hover {
+  r: 25px;
+}
+
+.FrontierPlot circle.interactive:active {
+  stroke: none;
+  fill: #8883;
+}

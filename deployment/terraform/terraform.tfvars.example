@@ -1,0 +1,13 @@
+# based on https://github.com/marcelo-ochoa/oci-swarm-cluster
+
+tenancy_ocid = "ocid1.tenancy.oc1.."
+compartment_ocid = "ocid1.tenancy.oc1.."
+
+user_ocid = "ocid1.user.oc1.."
+fingerprint = "xy:zw:..."
+private_key_path = "/path/to/private/key"
+
+db_names = ["firstdbname", "seconddbname"]
+compute_name = "computeinstancename"
+
+public_ssh_key = "..."

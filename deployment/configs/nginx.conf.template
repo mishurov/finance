@@ -1,0 +1,38 @@
+# /**************************************************************************
+#
+#  This file is part of the Mishurov Finance website
+#
+#  Copyright (C) 2021 Alexander Mishurov
+#
+#  GNU General Public License Usage
+#  This file may be used under the terms of the GNU
+#  General Public License version 3. The licenses are as published by
+#  the Free Software Foundation and appearing in the file LICENSE.GPL3
+#  included in the packaging of this file. Please review the following
+#  information to ensure the GNU General Public License requirements will
+#  be met: https://www.gnu.org/licenses/gpl-3.0.html.
+#
+# **************************************************************************/
+
+resolver 127.0.0.11 ipv6=off valid=10s;
+
+server {
+  listen 80;
+
+  location / {
+    set $django http://${APP_PORT_8000_TCP_ADDR}:8000;
+    proxy_set_header Host $host;
+    proxy_pass $django;
+  }
+
+  location ~ ^/.well-known/acme-challenge/([a-zA-Z0-9-_]+)$ {
+    error_page 502 =404 /404.html;
+    set $certbot http://${CERTBOT_PORT_80_TCP_ADDR};
+    proxy_pass $certbot;
+  }
+
+  location /health {
+    default_type application/json;
+    return 200 '{"status":"OK"}';
+  }
+}

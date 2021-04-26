@@ -1,0 +1,40 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.gridLine,
+.gridLineLast {
+  stroke: #1114;
+  stroke-width: 0.5;
+}
+
+.axisX > g > text,
+.axisY > g > text  {
+  font-family: 'PT Sans', sans-serif;
+  fill: #333;
+  letter-spacing: -0.3pt;
+}
+
+.axisX > g > line:not([class=gridLine]),
+.axisY > g > line:not([class=gridLine]) {
+  stroke: #222;
+  stroke-width: 0.5;
+}
+
+.axisX > path,
+.axisY > path {
+  stroke: #333;
+  stroke-width: 0.5;
+}

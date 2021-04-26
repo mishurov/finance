@@ -1,0 +1,105 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.InputPane {
+  position: relative;
+  display: inline-block;
+  background: #efefef;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.InputPane-Label {
+  margin-right: 5px;
+  padding-right: 5px;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 14px;
+}
+
+.InputPane-TickerLabel {
+  border-right: #cecece 1px solid;
+}
+
+.InputPane-Input {
+  position: relative;
+  display: inline-block;
+}
+
+.InputPane-Input > input::placeholder {
+  color: #aaa;
+}
+
+.InputPane-Input > input {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.InputPane-Cross,
+.InputPane-Search {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.InputPane-Cross {
+  position: absolute;
+  right: 24px
+}
+
+.InputPane-Cross > img {
+  margin-top: 5px;
+  width: 12px;
+  height: 12px;
+}
+
+.InputPane-Search > img {
+  vertical-align: -15%;
+  width: 16px;
+  height: 16px;
+}
+
+
+.InputPane-Bond {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  border: #ccc 1px solid;
+  padding-left: 5px;
+  padding-right: 3px;
+}
+
+.InputPane-Bond:focus {
+  border-color: #777;
+}
+
+.InputPane-Bond.placeholder {
+  color: #787878;
+}
+
+.InputPane-Bond > img {
+  vertical-align: -12%;
+  margin-left: 4px;
+  width: 16px;
+  height: 16px;
+}
+

@@ -1,0 +1,291 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.Equity-ticker {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: #656565;
+}
+
+.Equity-name {
+  color: #222;
+  font-family: 'PT Serif', serif;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.Equity-exchange {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 25px;
+  color: #888;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.Equity-industry {
+  color: #444;
+  font-family: 'PT Serif', serif;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.Equity div.Equity-overview {
+  margin-top: 12px;
+}
+
+.Equity div.Equity-technicals {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.Equity p.updatedAt {
+  font-family: 'PT Sans', sans-serif;
+  color: #676767;
+  font-size: 11px;
+  margin-bottom: 20px;
+}
+
+.Equity p.updatedAt > .updatedAtLabel {
+  color: #888;
+}
+
+.Equity p.firmNotes {
+  padding: 10px;
+  background: PapayaWhip;
+  max-width: 650px;
+  font-size: 14px;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.Equity p.firmNotes > .firmWarn {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+  color: black;
+}
+
+.Equity div.Equity-overview > dl > dt {
+  color: #777;
+  font-size: 13px;
+}
+
+.Equity div.Equity-overview > dl > dd {
+  color: #222;
+  font-size: 15px;
+}
+
+.Equity div.Equity-technicals > dl > dt {
+  color: #555;
+  font-size: 12px;
+}
+
+.Equity div.Equity-technicals > dl > dd {
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.Equity h2 {
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
+.Equity p.subhead {
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: #444;
+  font-size: 15px;
+  font-family: 'PT Serif', serif;
+}
+
+.Equity p.subhead > span.latestValue {
+  margin-left: 7px;
+  color: #333;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.Equity p.subhead > span.latestDate {
+  margin-left: 5px;
+  color: #656565;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.Equity-RatiosContainer {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 15px;
+  width: fit-content;
+}
+
+.Equity-CashFlows, .Equity-OverviewContainer,
+.Equity-TechicalsContainer > div {
+  width: fit-content;
+}
+
+.Equity-FCF, .Equity-ratios {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+}
+
+div.Equity-options {
+  font-family: 'PT Sans', sans-serif;
+  margin-bottom: 20px;
+}
+
+div.Equity-options > p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+div.Equity-options > p.subheadOptions {
+  color: #333;
+  font-family: 'PT Serif', serif;
+  font-size: 14px;
+}
+
+div.Equity-options > table {
+  border: 0;
+  border-collapse: collapse;
+  margin-top: 7px;
+  margin-bottom: 4px;
+}
+
+div.Equity-options > table th {
+  font-size: 13px;
+  font-weight: normal;
+  color: #555;
+}
+
+div.Equity-options > table th[scope='row'] {
+  font-weight: bold;
+  color: #333;
+}
+
+div.Equity-options > table th,
+div.Equity-options > table td {
+  border: solid 1px #ddd;
+  padding: 3px 10px;
+}
+
+/*
+.Equity .CashFlowPlot .axisY .gridLineLast,
+.Equity .RatioPlot .axisY .gridLineLast {
+  display: none;
+}
+*/
+
+.CandlePlotD3 g.crosshair.cursor > line {
+  stroke: #111;
+  stroke-opacity: 0.6;
+}
+
+.CandlePlotD3 g.crosshair.latest > line {
+  stroke-dasharray: 2;
+}
+
+.CandlePlotD3 g.masLabels text,
+.CandlePlotD3 g.stochLabel text {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 12px;
+}
+
+.CandlePlotD3 {
+  position: relative;
+  width: min-content;
+}
+
+
+.CandlePlotD3 > svg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.CandlePlotD3 > canvas {
+  display: block;
+  position: absolute;
+}
+
+.CandlePlotD3 text.lbl {
+  fill: #444;
+}
+
+.CandlePlotD3 rect.stochRect {
+  fill: #f2f2f2;
+}
+
+.CandlePlotD3 rect.stochLabelRect,
+.CandlePlotD3 rect.masLabelRect {
+  fill: #f4f4f4aa;
+  rx: 2px;
+}
+
+
+.CandlePlotTV {
+  position: relative;
+  width: min-content;
+}
+
+
+.CandlePlotTV > svg {
+  pointer-events: none;
+  z-index: 1;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.CandlePlotTV > svg > g.tvHairH text,
+.CandlePlotTV > svg > g.tvHairV text {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.4pt;
+}
+
+.CandlePlotTV > svg > g.tvHairV > line {
+  stroke: #000;
+  stroke-width: 0.5;
+  stroke-dasharray: 5;
+}
+
+
+.CandlePlotTV > svg > g.axisR > g > line {
+  stroke-width: 0.5;
+}
+
+.CandlePlotTV > svg > g.axisR > g > text {
+  fill: #444;
+}
+.CandlePlotTV > svg > g.axisR > path {
+  stroke-width: 0.5;
+}
+
+.CandlePlotTV > svg > g.maLabels text {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 12px;
+}

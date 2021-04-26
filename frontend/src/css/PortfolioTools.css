@@ -1,0 +1,146 @@
+/****************************************************************************
+**
+** This file is part of the Mishurov Finance website
+**
+** Copyright (C) 2021 Alexander Mishurov
+**
+** GNU General Public License Usage
+** This file may be used under the terms of the GNU
+** General Public License version 3. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+.PortfolioTools-InputBar {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+@media (max-width: 500px) {
+  .PortfolioTools-InputBar {
+    flex-direction: column;
+  }
+}
+
+.PortfolioTools-ItemsBar {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.PortfolioTools h2 {
+  margin-top: 12px;
+  margin-bottom: 3px;
+}
+
+.PortfolioTools h3 {
+  width: min-content;
+  margin-top: 15px;
+  margin-bottom: 3px;
+}
+
+.FrontierPlot > svg {
+  display: block;
+}
+
+.FrontierBlocks {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.FrontierPlotContainer {
+  width: 600px;
+  padding-right: 10px;
+  margin-right: 20px;
+  border-right: 1px solid #ddd;
+}
+
+@media (max-width: 890px) {
+  .FrontierBlocks > div:first-child {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+.FrontierFigures {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: min-content auto;
+}
+
+.FrontierFigures > div:nth-child(2) {
+  padding-left: 12px;
+}
+
+.FrontierFigures > div > div.portfolios {
+  padding-right: 15px;
+  border-right: 1px solid #ccc;
+}
+
+.FrontierFigures > div > .assets {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+  column-gap: 15px;
+}
+
+.PortfolioTools h4 {
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+
+.PortfolioTools p.nodata {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: 'PT Serif', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #777;
+}
+
+.PortfolioTools dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+  column-gap: 5px;
+  font-size: 14px;
+}
+
+.PortfolioTools dt {
+  text-align: right;
+}
+
+.PortfolioTools dl.figures {
+  margin-bottom: 10px;
+}
+
+.PortfolioTools dl.weights {
+  margin-bottom: 5px;
+}
+
+.PortfolioTools dl.weights > dt {
+  font-weight: bold;
+}
+
+.PortfolioTools dl.figures > dt {
+  font-size: 12px;
+  font-weight: bold;
+  color: #222;
+}
+
+.PortfolioTools dl.figures > dd {
+  font-size: 13px;
+}
+
+.PortfolioTools .assets dl.figures > dt {
+  font-size: 11px;
+  color: #444;
+}
+
+.PortfolioTools .assets dl.figures > dd {
+  font-size: 12px;
+}
