@@ -32,6 +32,8 @@ class AssetItems extends FrontierLabelMixin(class {}) {
   onMouseOver(e) {
     let node = e.target.parentNode;
     for (var i = 0; i < 3; i++) {
+      if (!node.attributes.class)
+        return;
       if (node.attributes.class.nodeValue === 'item')
         break;
       node = node.parentNode;

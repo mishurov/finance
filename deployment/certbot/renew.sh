@@ -18,10 +18,6 @@
 
 set -e
 
-echo 'CERTBOT OLOLOLO'
-
-exit 0
-
 PATH='/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 EMAIL='alexander@mishurov.co.uk'

@@ -14,6 +14,7 @@
 #
 # **************************************************************************/
 
+import xml.etree.ElementTree as ET
 from django.views import View
 from django.http import JsonResponse
 from ..models.concrete import TextItem, Candle
@@ -46,6 +47,22 @@ class JsonGetTextView(JsonGetView):
             return ret
         for t in texts:
             ret[t.key] = t.text
+            if t.key != 'notes':
+                continue
+            ret[t.key] = [t.text]
+            ol = None
+            try:
+                parsed = ET.fromstring(f'<r>{t.text}</r>')
+            except ET.ParseError:
+                continue
+            else:
+                ol = parsed.find('ol')
+            if not ol:
+                continue
+            list_items = []
+            for li in ol:
+                list_items.append(li.text.strip())
+            ret[t.key] = list_items
         return ret
 
 

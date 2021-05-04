@@ -44,6 +44,7 @@ MEMCACHED = env_bool('MEMCACHED')
 USE_ELASTIC_COMPLETER = conf['USE_ELASTIC_COMPLETER']
 USE_WEB_CRAWL = conf['USE_WEB_CRAWL']
 EXPOSE_ADMIN = DEBUG or conf['EXPOSE_ADMIN']
+LOCAL_DB = DEBUG and os.environ.get('LOCAL_DB') == 'true'
 
 if not DEBUG:
     ALLOWED_HOSTS = creds['ALLOWED_HOSTS']
@@ -145,6 +146,17 @@ DATABASES = {
         }
     }
 }
+
+if LOCAL_DB:
+    DATABASES['production'] = DATABASES['default'].copy()
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
 
 if 'test' in sys.argv[1:]:
     class DisableMigrations(object):

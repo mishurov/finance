@@ -19,6 +19,8 @@ ARG username=django
 ARG appdir=/app
 
 FROM python:3.9-slim-buster as base
+
+
 FROM base as build
 
 COPY ./requirements/precompile.txt /
@@ -26,8 +28,10 @@ COPY ./requirements/precompile.txt /
 RUN apt-get update && \
     apt-get install -y \
         zlib1g-dev \
+        libpq-dev \
         gcc && \
     pip install -r precompile.txt
+
 
 FROM base as dev
 
@@ -46,14 +50,15 @@ RUN groupadd -g ${uid} ${username} && \
     chown ${username}:${username} /var/log/django && \
     apt-get update && \
     apt-get install -y \
-        libaio1
+        libaio1 \
+        libpq5 \
+        postgresql-client
 
 WORKDIR ${appdir}
 RUN pip install -r ./precompile.txt && \
     pip install -r ./all.txt && \
     rm ./precompile.txt ./all.txt
 
-USER ${username}
 
 FROM dev as prod
 ARG username

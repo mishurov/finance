@@ -17,7 +17,7 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { select} from 'd3-selection';
+import { select } from 'd3-selection';
 import { zoom } from 'd3-zoom';
 import { utcFormat } from 'd3-time-format';
 

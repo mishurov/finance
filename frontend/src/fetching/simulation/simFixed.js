@@ -72,5 +72,5 @@ export function overview(ticker) {
 }
 
 export function texts() {
-  return { notes: 'Text <b>B</b>onds <br> example' };
+  return { notes: ['The bond data is scheduled for nightly updates'] };
 }

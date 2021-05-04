@@ -19,6 +19,7 @@ version: '3.9'
 x-env: &oracle_env
   - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/oracle/client
   - DEBUG=true
+  - LOCAL_DB=false
   - MEMCACHED=false
 
 x-secrets: &django_secrets
@@ -49,6 +50,7 @@ services:
     depends_on:
       - es
       - memcached
+      - db
     networks:
       - finance_net_dev
 
@@ -62,6 +64,7 @@ services:
     depends_on:
       - redis
       - memcached
+      - db
     networks:
       - finance_net_dev
 
@@ -87,6 +90,17 @@ services:
     container_name: finance_memcached
     image: docker.io/memcached:1.6.9
     command: memcached -m 128
+    networks:
+      - finance_net_dev
+
+  db:
+    container_name: finance_db
+    image: postgres:13.2
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     networks:
       - finance_net_dev
 

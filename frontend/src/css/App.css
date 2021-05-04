@@ -168,20 +168,20 @@ h6.notes {
   margin-bottom: 5px;
 }
 
-p.notes {
+ol.notes {
+  width: 90vw;
   max-width: 600px;
   margin-top: 5px;
   font-family: 'PT Serif', serif;
   font-size: 13px;
   color: #575757;
-}
 
-p.notes > ol {
   padding-left: 12px;
   margin: 0;
+  margin-bottom: 10px;
 }
 
-p.notes > ol > li {
+ol.notes > li {
   margin-bottom: 5px;
 }
 
@@ -233,7 +233,8 @@ div.Security-dict {
 div.disclaimer {
   font-family: 'PT Sans', sans-serif;
   font-size: 10px;
-  width: 450px;
+  width: 90vw;
+  max-width: 450px;
   color: #777;
   margin-bottom: 5px;
 }

@@ -20,6 +20,9 @@ server {
   listen 80;
 
   location / {
+    if ($host !~* ^(finance.mishurov.co.uk|api.finance.mishurov.co.uk)$ ) {
+      return 400;
+    }
     set $django http://${APP_PORT_8000_TCP_ADDR}:8000;
     proxy_set_header Host $host;
     proxy_pass $django;

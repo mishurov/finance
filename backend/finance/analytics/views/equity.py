@@ -193,16 +193,13 @@ OPTION_MAPPING = {
 
 class OptionsView(TickerViewMixin, JsonGetView):
     def get_ticker_data(self, ticker, *args, **kwargs):
-        call = put = None
+        ret = {'C': [], 'P': []}
         for o in Option.objects.filter(ticker__ticker=ticker, exists=True):
-            opt = {}
+            option = {}
             for k, v in OPTION_MAPPING.items():
-                opt[k] = v(o)
-            if o.type == 'C':
-                call = opt
-            elif o.type == 'P':
-                put = opt
-        return {'call': call, 'put': put} if call or put else {}
+                option[k] = v(o)
+            ret[o.type].append(option)
+        return {'calls': ret['C'], 'puts': ret['P']}
 
 
 class DailyView(TickerViewMixin, DailyPricesView):

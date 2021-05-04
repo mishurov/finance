@@ -21,14 +21,22 @@ import * as fixed from './simFixed';
 import * as home from './simHome';
 import * as securities from './simSecurities';
 
-const TIMEOUT = 3000;
+//const TIMEOUT = 3000;
+const TIMEOUT = 3;
 
 
 function getResponse(url) {
   let data;
 
-  const urlObj = new URL(url);
-  const path = urlObj.origin + urlObj.pathname,
+  let toParse = '';
+  if (url.startsWith('/api')) {
+    toParse = 'http://apiserver.local' + url;
+  } else {
+    toParse = url;
+  }
+
+  const urlObj = new URL(toParse);
+  const path = (toParse !== url ? '' : urlObj.origin) + urlObj.pathname,
       params = urlObj.searchParams;
 
   if (url.startsWith(urls.EQUITY_BASE)) {
