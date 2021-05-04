@@ -95,20 +95,15 @@ export function extractOptions(data) {
       || !data.optionChain.result[0].options.length)
     return null;
 
-  const maxVol = (p, c) => p.volume > c.volume ? p : c;
-  const convExp = (o) => o.expiration = new Date(o.expiration * 1000);
+  const convExp = (o) => {
+    o.expiration = new Date(o.expiration * 1000)
+    o.lastTrade = new Date(o.lastTradeDate * 1000)
+  };
 
   const { calls, puts } = data.optionChain.result[0].options[0];
 
-  let call, put;
-  if (calls.length) {
-    call = calls.reduce(maxVol);
-    convExp(call);
-  }
-  if (puts.length) {
-    put = puts.reduce(maxVol);
-    convExp(put);
-  }
+  calls.map(o => convExp(o));
+  puts.map(o => convExp(o));
 
-  return call || put ? { call, put } : null;
+  return { calls, puts };
 }

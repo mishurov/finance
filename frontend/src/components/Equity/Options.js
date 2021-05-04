@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { useFetch, fetchStates } from '../../fetching/useFetch';
 import { fetchEquity } from '../../fetching/api';
 import { formatDateStr } from '../common/utils'
-
+import OptionsHistoPlot from './OptionsHistoPlot';
 const resource = fetchEquity();
 
 
@@ -27,61 +27,87 @@ function toPercent(d) {
 }
 
 
-function Option(props) {
-  const { type, option } = props;
+function OptionGroup(props) {
+  if (!props.data.length)
+    return null;
 
-  return (
-    <tr>
-      <th scope='row'>{type}</th>
-      <td>{formatDateStr(option.expiration)}</td>
-      <td>{option.strike}</td>
-      <td>{option.lastPrice}</td>
-      <td>{formatDateStr(option.lastTrade)}</td>
-      <td>{toPercent(option.impliedVolatility)}</td>
-      <td>{option.volume}</td>
-      <td>{option.contractSymbol}</td>
-    </tr>
-  );
+  const max = props.data.reduce((prev, current) => {
+    return (prev.volume > current.volume) ? prev : current
+  });
+
+  return (<div className='optionGroup'>
+    <h3>{props.title}</h3>
+    <OptionsHistoPlot
+      width={460} height={150}
+      data={props.data}
+      color={props.color}/>
+    <p className='max'>
+      Highest volume:
+      <span className='name' style={{color: props.color}}>
+        {max.contractSymbol}
+      </span>
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Strike</th>
+          <th>Price</th>
+          <th>Last Trade</th>
+          <th>Impl Volat</th>
+          <th>Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{max.strike}</td>
+          <td>{max.lastPrice}</td>
+          <td>{formatDateStr(max.lastTrade)}</td>
+          <td>{toPercent(max.impliedVolatility)}</td>
+          <td>{max.volume}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>)
 }
 
 
 function Options(props) {
-  const [options, setOptions] = useState(null);
+  const [calls, setCalls] = useState([]);
+  const [puts, setPuts] = useState([]);
+  const [expiration, setExpiration] = useState(null);
 
   const fetching = useFetch(async function() {
-    setOptions(null);
+    setPuts([]);
+    setCalls([]);
+    setExpiration(null);
     if (props.ticker) {
       const data = await resource.options(props.ticker)
-      if (data.call || data.put)
-        setOptions(data);
+      if (data.calls.length)
+        setCalls(data.calls);
+      if (data.puts.length)
+        setPuts(data.puts);
+      const options = data.calls && data.calls.length ? data.calls : data.puts;
+      if (options.length)
+        setExpiration(options[0].expiration)
     }
   }, [props.ticker]);
 
-  if (fetching !== fetchStates.SUCCESS || !options)
+  if (fetching !== fetchStates.SUCCESS || (!puts.length && !calls.length))
     return null;
 
   return (
     <div className='Equity-options'>
       <h2>Options</h2>
-      <p className='subheadOptions'>Farthest max volume contracts</p>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th scope='col'>Expiration</th>
-            <th scope='col'>Strike</th>
-            <th scope='col'>Price</th>
-            <th scope='col'>Last Trade</th>
-            <th scope='col'>Impl Volat</th>
-            <th scope='col'>Volume</th>
-            <th scope='col'>Contract Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {options.call && <Option type='Call' option={options.call} />}
-          {options.put && <Option type='Put' option={options.put} />}
-        </tbody>
-      </table>
+      <p className='subhead'>
+        Strike-volume histograms on the latest expiration date:
+        <span className='latestDate'>
+          {formatDateStr(expiration)}
+        </span>
+      </p>
+      <div className='optionGroups'>
+        <OptionGroup title='Calls' data={calls} color='#627185'/>
+        <OptionGroup title='Puts' data={puts} color='#75586b'/>
+      </div>
     </div>
   );
 }

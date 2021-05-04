@@ -16,10 +16,11 @@
 
 export function texts() {
   return {
-    description: 'Text <b>H</b>ome <br> example <a href="http://ya.ru">Link</a>',
+    description: 'This is a collection of tools for rough quick financial assessments. It covers a fraction of the US traded shares and a selected number of Russian Eurobonds accessible for purchase at <a href="https://www.tinkoff.ru/eng/products/tinkoff-investments/">Tinkoff&nbsp;Investments</a>. It also has an ability to approximately estimate portfolio performance using the MPT model (mean-variance analysis).',
     links: [
       { href: '/equity/IBM', text: 'IBM Equity' },
       { href: '/fixed-income/XS1589106910', text: 'Gaz Finance Bond' },
+      { href: '/portfolio-tools?t=INTC,APA,RCL', text: 'NTC,APA,RCL portfolio' },
     ]
   };
 }

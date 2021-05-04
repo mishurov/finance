@@ -147,43 +147,73 @@
 }
 
 div.Equity-options {
-  font-family: 'PT Sans', sans-serif;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
-div.Equity-options > p {
-  margin-top: 0px;
-  margin-bottom: 0px;
+div.Equity-options h3 {
+  margin: 0;
+  margin-bottom: 5px;
 }
 
-div.Equity-options > p.subheadOptions {
+
+div.Equity-options > p.subhead {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+div.Equity-options > p.subhead > span.latestDate {
   color: #333;
-  font-family: 'PT Serif', serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-div.Equity-options > table {
+div.optionGroups {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 25px;
+}
+
+div.optionGroup {
+  margin-bottom: 12px;
+}
+
+div.optionGroup > p.max {
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+div.optionGroup > p.max > span.name {
+  margin-left: 3px;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+}
+
+div.Equity-options table {
+  font-family: 'PT Sans', sans-serif;
   border: 0;
   border-collapse: collapse;
   margin-top: 7px;
   margin-bottom: 4px;
 }
 
-div.Equity-options > table th {
-  font-size: 13px;
+div.Equity-options table th {
+  font-size: 12px;
   font-weight: normal;
   color: #555;
 }
 
-div.Equity-options > table th[scope='row'] {
-  font-weight: bold;
-  color: #333;
+div.Equity-options table tr {
+  font-size: 14px;
 }
 
-div.Equity-options > table th,
-div.Equity-options > table td {
+div.Equity-options table th,
+div.Equity-options table td {
   border: solid 1px #ddd;
   padding: 3px 10px;
+}
+
+.OptionsHistoPlot text.AxisLabel {
+  font-size: 11px;
 }
 
 /*

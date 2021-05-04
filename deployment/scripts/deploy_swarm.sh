@@ -25,7 +25,7 @@ set -e
 MASTER_IP=$(cat ./output.json | jq -r ".computes_public_ips.value[0]")
 SLAVE_IP=$(cat ./output.json | jq -r ".computes_public_ips.value[1]")
 
-APP_IMAGE=registry.local:32000/finance_app:1.0
+APP_IMAGE=registry.local:32000/finance_app:1.1
 CERT_IMAGE=registry.local:32000/finance_certbot:1.0
 
 
@@ -60,6 +60,16 @@ rotate_django_conf() {
   docker config rm ${prev}
 }
 
+rotate_nginx_conf() {
+  prev=$(docker config ls | grep 'app_stack_nginx' | awk '{print $2}')
+  conf=app_stack_nginx_$(date +'%y-%m-%d_%H-%M')
+  docker config create ${conf} ../configs/nginx.conf.template
+  docker service update \
+    --config-rm ${prev} \
+    --config-add source=${conf},target=/etc/nginx/templates/default.conf.template \
+    app_stack_nginx
+  docker config rm ${prev}
+}
 
 rotate_app_credentials() {
   prev=$(docker secret ls | grep 'app_stack_credentials' | awk '{print $2}')
@@ -88,10 +98,11 @@ initial_deploy() {
 }
 
 
-initial_deploy
-#update_app_image_service
+#initial_deploy
+update_app_image_service
 #rotate_django_conf
 #rotate_app_credentials
+#rotate_nginx_conf
 
 pid=$(ps -x -o pid,cmd | grep '[s]sh -fnNL' | awk '{print $1}')
 kill -QUIT $pid

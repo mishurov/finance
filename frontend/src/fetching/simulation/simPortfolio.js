@@ -90,6 +90,13 @@ export function daily(tickers) {
 
 
 export function texts() {
-  return { notes: 'Text <b>P</b>ortfolio <br> example' };
+  return {
+    notes: [
+      'The mean and the variance are computed using the daily log-returns of the non-adjusted daily closing prices in a one-year range.',
+      'The portfolio points are randomly simulated, the weights are drown from a uniform distribution.',
+      'The efficient frontier is computed using the numerical constrained optimisation, a JavaScript implementation of the dual method of Goldfarb and Idnani (1982, 1983) for solving quadratic programming problems.',
+      'Daily prices are scheduled for nightly updates on business days.',
+    ]
+  };
 }
 

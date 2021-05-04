@@ -129,8 +129,9 @@ function Equity(props) {
       <div className={textsFetching + ' FooterText'}>
         {textsFetching === fetchStates.FAILURE && <FailureOverlay/>}
         <h6 className='notes'>Notes</h6>
-        {texts && <p className='notes'
-          dangerouslySetInnerHTML={{ __html: texts.notes }}/>}
+        {texts && texts.notes && <ol className='notes'>{
+          texts.notes.map((t, i) => <li key={i}>{t}</li>)
+        }</ol>}
       </div>
     </div>
   );

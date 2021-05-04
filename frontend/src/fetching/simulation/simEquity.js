@@ -201,5 +201,11 @@ export function daily(ticker) {
 
 
 export function texts() {
-  return { notes: 'Text <b>E</b>quity <br> example' };
+  return {
+    notes: [
+      'The asset summary data, financial statements and some technical-analysis data are scheduled for weekly updates during weekends.',
+      'Daily prices are scheduled for nightly updates on business days.',
+      'The data shown can be imprecise due to using the different sources of the financial data.',
+    ]
+  };
 }

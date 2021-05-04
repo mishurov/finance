@@ -38,6 +38,7 @@ __pycache__
 
 # private
 /frontend/src/secrets.js
+/backend/pgdata
 /backend/oracle
 /backend/secrets/credentials.json
 /backend/secrets/cwallet.sso

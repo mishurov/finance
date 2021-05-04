@@ -143,6 +143,8 @@ class Grid extends ClipMixin(class {}) {
   updateXDomainPath() {
     // update z order so gridline wouldn't overlay domain path
     const domain = this.axisXgroup.select('path.domain')
+    if (domain.empty())
+      return;
     const d = domain.attr('d');
     domain.remove();
     this.axisYgroup.select('path.xDomain').remove();
