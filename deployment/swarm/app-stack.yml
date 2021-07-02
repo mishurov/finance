@@ -18,7 +18,7 @@ version: '3.9'
 
 services:
   app:
-    image: registry.local:32000/finance_app:1.1
+    image: registry.local:32000/finance_app:1.2
     hostname: 'app_{{.Node.Hostname}}'
     networks:
       - finance_net
@@ -58,7 +58,7 @@ services:
     command: memcached -m 128
 
   certbot:
-    image: registry.local:32000/finance_certbot:1.0
+    image: registry.local:32000/finance_certbot:1.1
     networks:
       - finance_net
     deploy:
@@ -82,7 +82,7 @@ services:
       - -c
       - 'cron && crontab crontab && tail -f /var/log/cron.log'
   nginx:
-    image: docker.io/nginx:1.19.10
+    image: docker.io/nginx:1.21.0
     networks:
       - finance_net
     deploy:

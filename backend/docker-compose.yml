@@ -76,7 +76,7 @@ services:
 
   es:
     container_name: finance_elastic
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
     environment:
       - discovery.type=single-node
       - logger.level=WARN
@@ -95,7 +95,7 @@ services:
 
   db:
     container_name: finance_db
-    image: postgres:13.2
+    image: postgres:13.3
     environment:
       - POSTGRES_USER=django
       - POSTGRES_PASSWORD=password
@@ -105,7 +105,15 @@ services:
       - finance_net_dev
 
 volumes:
-  oracle_client: # deployment/scripts/partials/create_volume.sh
+  # https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html
+  # instantclient-basiclite-linux.x64
+  #
+  # deployment/scripts/partials/create_volume.sh
+  # cd oracle
+  # docker volume create oracle_client
+  # tar -C ./client -c -f- . | docker run --rm -i \
+  #    -v oracle_client:/data alpine tar -C /data/ -xv -f-
+  oracle_client:
     external: true
   es_data:
     driver: local

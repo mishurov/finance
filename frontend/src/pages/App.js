@@ -32,6 +32,7 @@ const FixedIncome = lazy(() => import('./FixedIncome'));
 const PortfolioTools = lazy(() => import('./PortfolioTools'));
 
 const PROD = true;
+//const PROD = false;
 
 if (PROD) {
   try {

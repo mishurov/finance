@@ -17,6 +17,8 @@
 ARG uid=1001
 ARG username=certifier
 ARG home=/home/certifier
+ARG certbot=1.16.0
+ARG ocicli=2.26.0
 
 FROM python:3.9-slim-buster as base
 
@@ -24,6 +26,8 @@ FROM base as dev
 ARG uid
 ARG username
 ARG home
+ARG certbot
+ARG ocicli
 
 RUN apt update && \
     apt -y install cron && \
@@ -42,8 +46,8 @@ RUN apt update && \
     touch /var/log/cron.log && \
     chown -R ${username}:${username} \
         /var/log/cron.log && \
-    pip install certbot==1.14.0 && \
-    pip install oci-cli==2.23.0
+    pip install certbot==${certbot} && \
+    pip install oci-cli==${ocicli}
 
 WORKDIR ${home}
 USER ${username}
