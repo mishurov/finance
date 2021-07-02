@@ -25,9 +25,9 @@ set -e
 MASTER_IP=$(cat ./output.json | jq -r ".computes_public_ips.value[0]")
 SLAVE_IP=$(cat ./output.json | jq -r ".computes_public_ips.value[1]")
 
-APP_IMAGE=registry.local:32000/finance_app:1.1
-CERT_IMAGE=registry.local:32000/finance_certbot:1.0
-
+APP_IMAGE=registry.local:32000/finance_app:1.2
+CERT_IMAGE=registry.local:32000/finance_certbot:1.1
+NGINX_IMAGE=docker.io/nginx:1.21.0
 
 ssh -fnNL ./master.sock:/var/run/docker.sock ubuntu@${MASTER_IP}
 export DOCKER_HOST=unix://$(pwd)/master.sock
@@ -38,7 +38,7 @@ update_image() {
   image=$1
   docker-compose -f app-stack.yml build
   docker push $image
-  if [ "$image" != "$CERT_IMAGE" ]; then
+  if [ "$image" = "$APP_IMAGE" ]; then
     # TODO: most likely it is not needed at all
     ssh ubuntu@${SLAVE_IP} "docker pull $image"
   fi;
@@ -52,6 +52,10 @@ update_app_image_service() {
 update_cert_image_service() {
   update_image $CERT_IMAGE
   docker service update --image $CERT_IMAGE app_stack_certbot
+}
+
+update_nginx_image_service() {
+  docker service update --image $NGINX_IMAGE app_stack_nginx
 }
 
 rotate_django_conf() {
@@ -106,6 +110,7 @@ initial_deploy() {
 #initial_deploy
 #update_app_image_service
 update_cert_image_service
+#update_nginx_image_service
 #rotate_django_conf
 #rotate_app_credentials
 #rotate_nginx_conf

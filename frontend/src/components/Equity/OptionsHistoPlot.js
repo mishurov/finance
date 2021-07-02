@@ -101,7 +101,8 @@ function OptionsHistoPlot(props) {
     const data = props.data;
     const ch = chartRef.current;
 
-    ch.grid.setDomainX(data)
+    data.sort((a, b) => (a.strike > b.strike) ? 1 : -1);
+    ch.grid.setDomainX(data);
     ch.grid.setDomainY([0, max(data, 'volume') * (1 + props.padding)]);
 
     ch.bars.setData(data, props.color);
