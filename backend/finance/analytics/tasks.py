@@ -16,9 +16,13 @@
 
 import json
 import pkgutil
+import httpx
 from django.core.management import call_command
 from .management import commands
 from celery import shared_task
+
+
+HEROKU_URL = 'http://finance-mishurov.herokuapp.com/api/texts'
 
 
 COMMANDS_NAMES = []
@@ -37,3 +41,9 @@ def create_task(name):
 # Dynamically create tasks for app's management commands
 for n in COMMANDS_NAMES:
     vars()[n] = create_task(n)
+
+
+# 0,12,24,36,48 * * * *
+@shared_task(ignore_result=True)
+def ping_heroku(*args, **options):
+    httpx.head(HEROKU_URL)

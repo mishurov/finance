@@ -69,3 +69,24 @@ COPY ./finance /app
 WORKDIR ${appdir}
 USER ${username}
 CMD gunicorn -c /etc/configs/gunicorn.conf.py
+
+FROM prod as heroku
+ARG username
+
+COPY ./configs/django.json /etc/configs/django.json
+COPY ./configs/gunicorn.conf.py /etc/configs/gunicorn.conf.py
+COPY ./configs/supervisord_heroku.conf /etc/configs/supervisord.conf
+
+COPY ./oracle/client /opt/oracle/client
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/oracle/client
+ENV LOCAL_REDIS=true
+
+USER root
+RUN sed -i -e 's/MEMCACHED": true/MEMCACHED": false/' /etc/configs/django.json && \
+    mkdir /var/run/secrets && \
+    chown -R $username /var/run/secrets && \
+    apt-get update && \
+    apt-get install -y redis
+
+USER ${username}
+CMD supervisord -c /etc/configs/supervisord.conf

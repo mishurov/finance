@@ -11,3 +11,8 @@ There're two nice cyber-shelters for cyber-homeless: [Alwaysdata](https://www.al
 It also includes [Terraform](https://www.terraform.io) configuration files to manage the Oracle Cloud resources.
 
 There're also [Kubernetes](https://kubernetes.io) deployment files, locally, using [MicroK8s](https://microk8s.io), it works fine but on the free-tier cloud virtual hardware goes almost irresponsive, gorges too much CPU.
+
+### Oracle
+>In support of Oracle employees and customers in Ukraine, Oracle has withdrawn all operations in the Russian Federation and Belarus.
+
+In support of myself in Russia, I have withdrawn the back end of this project from Oracle Cloud Infrastructure and temporarily deployed it to Heroku.

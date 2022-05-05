@@ -15,6 +15,7 @@
 # **************************************************************************/
 import os
 import sys
+import base64
 import json
 from pathlib import Path
 
@@ -23,10 +24,24 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 from .oracle import tns_to_easyconn
 
-with open('/etc/configs/django.json') as f:
+
+SECRETS_PATH = '/var/run/secrets'
+SECRETS = {
+    'CREDENTIALS': 'credentials.json',
+    'WALLET': 'cwallet.sso',
+    'TNSNAMES': 'tnsnames.ora',
+}
+
+for k, v in SECRETS.items():
+    if not os.path.exists(os.path.join(SECRETS_PATH, v)) and os.environ.get(k):
+        content = base64.b64decode(os.environ.get(k).encode('ascii'))
+        with open(os.path.join(SECRETS_PATH, v), 'wb') as f:
+            f.write(content)
+
+with open('/etc/configs/django.json', 'r') as f:
     conf = json.load(f)
 
-with open('/var/run/secrets/credentials.json') as f:
+with open(os.path.join(SECRETS_PATH, SECRETS['CREDENTIALS']), 'r') as f:
     creds = json.load(f)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +60,7 @@ USE_ELASTIC_COMPLETER = conf['USE_ELASTIC_COMPLETER']
 USE_WEB_CRAWL = conf['USE_WEB_CRAWL']
 EXPOSE_ADMIN = DEBUG or conf['EXPOSE_ADMIN']
 LOCAL_DB = DEBUG and os.environ.get('LOCAL_DB') == 'true'
+LOCAL_REDIS = os.environ.get('LOCAL_REDIS') == 'true'
 
 if not DEBUG:
     ALLOWED_HOSTS = creds['ALLOWED_HOSTS']
@@ -124,7 +140,7 @@ WSGI_APPLICATION = 'finance.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CONNSTRINGS = tns_to_easyconn('/var/run/secrets')
+CONNSTRINGS = tns_to_easyconn(SECRETS_PATH)
 
 DATABASES = {
     'default': {
@@ -262,7 +278,7 @@ EMAIL_USE_SSL = True
 
 
 # Celery
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0' if LOCAL_REDIS else 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'django-db'
 
 # Sentry

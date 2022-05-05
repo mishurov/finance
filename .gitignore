@@ -36,6 +36,9 @@ __pycache__
 /deployment/terraform/*.backup
 /deployment/terraform/wallet*.zip
 
+# heroku
+/deployment/heroku/test.env
+
 # private
 /frontend/src/secrets.js
 /backend/pgdata
