@@ -16,7 +16,7 @@
 
 import { useState } from 'react';
 import { useLocation } from "wouter";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 import { MENU_FIXED_INCOME } from './menu';
 import BondInputPane from '../components/FixedIncome/BondInputPane';
@@ -50,7 +50,7 @@ function FixedIncome(props) {
   const [texts, setTexts] = useState({});
 
   const overviewFetching = useFetch(async function() {
-    ReactGA.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 
     setOverview({});
     setDerived(null);

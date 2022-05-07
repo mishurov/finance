@@ -16,7 +16,7 @@
 
 import { useState } from 'react';
 import { useLocation } from "wouter";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 import TickerInputPane from '../components/common/TickerInputPane';
 import Overview from '../components/Equity/Overview';
@@ -60,7 +60,7 @@ function Equity(props) {
   const [texts, setTexts] = useState({});
 
   const overviewFetching = useFetch(async function() {
-    ReactGA.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 
     setHeader(headerInit);
     setItems(null);

@@ -16,7 +16,7 @@
 
 import { lazy, Suspense } from 'react';
 import { Switch, Route } from "wouter";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import * as Sentry from "@sentry/react";
 import Header from '../components/common/Header';
 import NotFound from './NotFound';

@@ -16,7 +16,7 @@
 
 import { useState, useRef } from 'react';
 import { useLocation } from "wouter";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 import TickerInputPane from '../components/common/TickerInputPane';
 import TickerItem from '../components/PortfolioTools/TickerItem';
@@ -64,7 +64,10 @@ function PortfolioTools(props) {
   const markRef = useRef(new MarkowitzModel());
 
   const pricesFetching = useFetch(async function() {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname + window.location.search
+    });
 
     let data = { daily: [] }
     if (tickers.length) {

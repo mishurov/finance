@@ -16,7 +16,7 @@
 
 import { useState } from 'react';
 import { Link } from "wouter";
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 import FailureOverlay from '../components/common/FailureOverlay';
 import { useFetch, fetchStates } from '../fetching/useFetch';
@@ -37,7 +37,7 @@ function Home() {
   const [texts, setTexts] = useState(null);
 
   const textsFetching = useFetch(async function() {
-    ReactGA.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     document.title = WINDOW_TITLE;
     const data = await resource.texts()
     if (data)
