@@ -2,7 +2,7 @@
 **
 ** This file is part of the Mishurov Finance website
 **
-** Copyright (C) 2021 Alexander Mishurov
+** Copyright (C) 2022 Alexander Mishurov
 **
 ** GNU General Public License Usage
 ** This file may be used under the terms of the GNU
@@ -74,7 +74,7 @@ function App() {
       offer or solicitation to engage in any investment activity.
     </div>
     <div className='copyright'>
-      Copyright © 2021 Alexander Mishurov. All rights reserved.
+      Copyright © 2022 Alexander Mishurov. All rights reserved.
     </div>
   </div>
   );
