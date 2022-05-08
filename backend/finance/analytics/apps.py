@@ -15,7 +15,13 @@
 # **************************************************************************/
 
 from django.apps import AppConfig
+from django.conf import settings
 
 
 class AnalyticsConfig(AppConfig):
     name = 'analytics'
+
+    def ready(self):
+        if not settings.USE_ELASTIC_COMPLETER:
+            from .views.securities import pre_cache_stocks_tickers
+            pre_cache_stocks_tickers()

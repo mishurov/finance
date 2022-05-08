@@ -87,6 +87,10 @@ class StocksView(JsonGetView):
         return {'stocks': stocks}
 
 
+def pre_cache_stocks_tickers():
+    StocksView().get_completer()
+
+
 bonds = []
 
 
