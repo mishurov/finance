@@ -18,10 +18,10 @@ import CrossHairs from '../common/CrossHairs';
 
 
 class Candles {
-  incPColor = '#4f9e95';
-  decPColor = '#f76585';
-  incVColor = '#6dada5';
-  decVColor = '#ed7e96';
+  incPColor = '#6ab058';
+  decPColor = '#fa505b';
+  incVColor = '#97c28c';
+  decVColor = '#f7747d';
   wickW = 1;
   bodyW = 2;
   volumeW = 3;

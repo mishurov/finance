@@ -263,7 +263,7 @@ div.Equity-options table td {
 }
 
 .CandlePlotD3 rect.stochRect {
-  fill: #f7f2f4;
+  fill: #f5f5f5;
 }
 
 .CandlePlotD3 rect.stochLabelRect,
