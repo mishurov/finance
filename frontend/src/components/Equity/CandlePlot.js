@@ -191,7 +191,7 @@ function CandlePlot(props) {
     const maxV = ch.grid.updateYWithData(series.slice(start));
 
     ch.candles.setData(series, start, maxV);
-    ch.mas.setData([9, 20], ['#3469fa', 'steelblue'], series, start);
+    ch.mas.setData([9, 20], ['#6596db', '#d48eab'], series, start);
 
 
     ch.stoch.setData(14, 3, 3, series, start);

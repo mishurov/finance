@@ -28,8 +28,8 @@ class Stochastic {
   maxLabelW = 25;
   format = format('.2f');
 
-  kColor = 'steelblue';
-  dColor = 'red';
+  kColor = '#5da0e3';
+  dColor = '#fc6a8c';
 
   constructor(svgBg) {
     this.rect = svgBg.append('rect')
