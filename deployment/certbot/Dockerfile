@@ -17,10 +17,10 @@
 ARG uid=1001
 ARG username=certifier
 ARG home=/home/certifier
-ARG certbot=1.16.0
-ARG ocicli=2.26.0
+ARG certbot=1.27.0
+ARG ocicli=3.8.1
 
-FROM python:3.9-slim-buster as base
+FROM python:3.10-slim-bullseye as base
 
 FROM base as dev
 ARG uid

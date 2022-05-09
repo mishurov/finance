@@ -18,7 +18,7 @@ ARG uid=1001
 ARG username=django
 ARG appdir=/app
 
-FROM python:3.9-slim-buster as base
+FROM python:3.10-slim-bullseye as base
 
 
 FROM base as build
