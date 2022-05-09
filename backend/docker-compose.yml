@@ -50,7 +50,7 @@ services:
     depends_on:
       - es
       - memcached
-      - db
+      - pgbouncer
     networks:
       - finance_net_dev
 
@@ -64,7 +64,7 @@ services:
     depends_on:
       - redis
       - memcached
-      - db
+      - pgbouncer
     networks:
       - finance_net_dev
 
@@ -90,6 +90,19 @@ services:
     container_name: finance_memcached
     image: docker.io/memcached:1.6.15-bullseye
     command: memcached -m 128
+    networks:
+      - finance_net_dev
+
+  pgbouncer:
+    container_name: finance_pgbouncer
+    image: docker.io/edoburu/pgbouncer:1.15.0
+    secrets:
+      - pgbouncer.ini
+      - pg-users.txt
+    depends_on:
+      - db
+    entrypoint: /usr/bin/pgbouncer
+    command: /var/run/secrets/pgbouncer.ini
     networks:
       - finance_net_dev
 
@@ -125,6 +138,10 @@ secrets:
     file: ./secrets/tnsnames.ora
   credentials.json:
     file: ./secrets/credentials.json
+  pgbouncer.ini:
+    file: ./secrets/pgbouncer.ini
+  pg-users.txt:
+    file: ./secrets/pg-users.txt
 
 networks:
   finance_net_dev:

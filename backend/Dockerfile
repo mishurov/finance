@@ -86,7 +86,11 @@ RUN sed -i -e 's/MEMCACHED": true/MEMCACHED": false/' /etc/configs/django.json &
     mkdir /var/run/secrets && \
     chown -R $username /var/run/secrets && \
     apt-get update && \
-    apt-get install -y redis
+    apt-get install -y redis pgbouncer
+
+# TODO: pass pgbouncer.ini and pg-users.txt
+# https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information
+# pgbouncer /var/run/secrets/pgbouncer.ini -u postgres
 
 USER ${username}
 CMD supervisord -c /etc/configs/supervisord.conf

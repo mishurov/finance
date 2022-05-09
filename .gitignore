@@ -46,6 +46,8 @@ __pycache__
 /backend/secrets/credentials.json
 /backend/secrets/cwallet.sso
 /backend/secrets/tnsnames.ora
+/backend/secrets/pgbouncer.ini
+/backend/secrets/pg-users.txt
 /deployment/kubernetes/secrets
 /deployment/kubernetes/configs
 /deployment/certbot/secrets
