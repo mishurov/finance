@@ -18,7 +18,7 @@ from datetime import timedelta
 from django.db import models
 from django.db.models import (F, Q, ExpressionWrapper, Value, OuterRef,
                               Subquery, When, Case, Count, Avg, Window)
-from django.db.models.functions import TruncQuarter
+from django.db.models.functions import TruncQuarter, Cast
 from . import abstract
 
 
@@ -153,6 +153,10 @@ class BalanceSheet(abstract.AbstractBalanceSheet):
         return ExpressionWrapper(expr, output_field=models.FloatField())
 
     @classmethod
+    def cast_float(cls, name):
+        return Cast(name, models.FloatField())
+
+    @classmethod
     def wrap_cond(cls, cond, expr):
         return Case(When(cond, then=0), default=expr,
                     output_field=models.FloatField())
@@ -160,11 +164,16 @@ class BalanceSheet(abstract.AbstractBalanceSheet):
     @classmethod
     def annotate_ratios(cls, compute_averages=True):
         mapping = {
-            'roa': F('net_income') / F('total_assets'),
-            'roe': F('net_income') / F('total_stock_equity'),
+            'roa':
+                cls.cast_float('net_income') / cls.cast_float('total_assets'),
+            'roe':
+                cls.cast_float('net_income') / cls.cast_float('total_stock_equity'),
             'current_ratio':
-                F('total_current_assets') / F('total_current_liabilities'),
-            'cash_ratio': F('cash') / F('total_current_liabilities'),
+                (cls.cast_float('total_current_assets')
+                    / cls.cast_float('total_current_liabilities')),
+            'cash_ratio':
+                (cls.cast_float('cash')
+                    / cls.cast_float('total_current_liabilities')),
         }
 
         predicates = {
