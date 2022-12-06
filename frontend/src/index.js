@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
-import App from './pages/App';
+//import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
+
+function App() {
+  return <p>
+    The project is temporarily closed because the sanctions against Russia
+    made it difficult to find a free cloud service.
+  </p>;
+}
 
 ReactDOM.render(
   <React.StrictMode>
